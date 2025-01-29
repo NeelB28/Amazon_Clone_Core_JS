@@ -93,7 +93,8 @@ products.forEach((product) => {
           Added
         </div>
 
-        <button class="add-to-cart-button button-primary">
+        <button class="add-to-cart-button button-primary js-add-to-cart"
+        data-product-id="${product.id}">
           Add to Cart
         </button>
       </div>`;
@@ -107,3 +108,37 @@ console.log(productsHTML);
 // first put html element in js and replace it
 
 document.querySelector(".js-products-grid").innerHTML = productsHTML;
+
+// Now last step is to make it interactive
+
+document.querySelectorAll(".js-add-to-cart").forEach((button) => {
+  button.addEventListener("click", () => {
+    // for each ka fn fir click pr fn
+    // so basically .dataset will help us to get all the attributue attached to button on click
+    // console.log(button.dataset);
+    // console.log(button.dataset.productName);
+    const productId = button.dataset.productId;
+
+    // steps
+    // check if the product is already in the cart: 1 way is too loop through the cart
+    // if it is in the cart then increase the qty
+    // if it is not in the cart then add it to the cart
+
+    let matchingItem;
+    cart.forEach((item) => {
+      if (item.productId === productId) {
+        matchingItem = item; // if we find the matchingitem then it will be an object as item is object and a param name of product object which is a truthy value
+      }
+    });
+
+    if (matchingItem) {
+      matchingItem.quantity += 1;
+    } else {
+      cart.push({
+        productId: productId,
+        quantity: 1,
+      });
+    }
+    console.log(cart);
+  });
+});
