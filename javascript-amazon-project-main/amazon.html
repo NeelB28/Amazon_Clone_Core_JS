@@ -195,9 +195,26 @@
       </div>
     </div>
   </div>
-  <script src="data/cart.js"></script>
-  <script src="data/products.js"></script>
-  <script src="scripts/amazon.js"></script>
+
+
+  <script type="module" src="scripts/amazon.js"></script>
+  <!-- Modules will help to avoid conflicts bw file variables and declaared variable -->
+  <!-- How to create a Module
+  1. Create a file and write all the code in it
+  2. Don't load the file with <script></script> 
+  
+  Any variable we created inside the file, will be contained inside the file
+
+  so, get a var out of a file
+  1. Add type = "module" attribute
+  Let's this file get variables out of other files
+  2. Import
+  3. Export
+
+  Also modules won't work if we open html files directly and so for that we need a live server/ or servers
+
+  Also without modules seq of src soure had to be proper but now with the help of module that problem is gone
+  -->
 </body>
 
 </html>

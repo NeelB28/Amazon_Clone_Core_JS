@@ -9,4 +9,5 @@
 // it has to start with data-xyz (kebab-case format)
 // so data-name will help to attach the name, price etc to the button element using data attributes
 
-const cart = [];
+export const cart = [];
+// now this variable can be used outside cart.js

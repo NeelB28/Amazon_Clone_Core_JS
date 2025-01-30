@@ -1,3 +1,18 @@
+/// import { cart as Mycart } from "../data/cart.js";
+
+import { cart } from "../data/cart.js";
+import { products } from "../data/products.js";
+// we need to get out of scripts folder from amazon.js and thus use ..
+
+//const cart = []; // now website won't work coz of naming conflicts but now we have atleast a control from where we are getting this conflict
+
+// to avoid this conflict we can import cart of cart.js as some different variable name such cart as myCart
+
+// First, get a var out of a file
+// 1. Add type = "module" attribute
+// 2. Import
+// 3. Export
+
 // Main idea of js
 // 1. SAVE THE DATA
 // 2. GENERATE THE INNERHTML
