@@ -1,6 +1,6 @@
 /// import { cart as Mycart } from "../data/cart.js";
 
-import { cart } from "../data/cart.js";
+import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 // we need to get out of scripts folder from amazon.js and thus use ..
 
@@ -126,6 +126,17 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
 
 // Now last step is to make it interactive
 
+function updateCartQuantity() {
+  let cartQuantity = 0;
+  cart.forEach((cartItem) => {
+    cartQuantity += cartItem.quantity;
+  });
+  // console.log(cartQuantity);
+  // use the dom to put it in webpage
+  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  // console.log(cart);
+}
+
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     // for each ka fn fir click pr fn
@@ -138,30 +149,7 @@ document.querySelectorAll(".js-add-to-cart").forEach((button) => {
     // check if the product is already in the cart: 1 way is too loop through the cart
     // if it is in the cart then increase the qty
     // if it is not in the cart then add it to the cart
-
-    let matchingItem;
-    cart.forEach((item) => {
-      if (item.productId === productId) {
-        matchingItem = item; // if we find the matchingitem then it will be an object as item is object and a param name of product object which is a truthy value
-      }
-    });
-
-    if (matchingItem) {
-      matchingItem.quantity += 1;
-    } else {
-      cart.push({
-        productId: productId,
-        quantity: 1,
-      });
-    }
-
-    let cartQuantity = 0;
-    cart.forEach((item) => {
-      cartQuantity += item.quantity;
-    });
-    console.log(cartQuantity);
-    // use the dom to put it in webpage
-    document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
-    console.log(cart);
+    addToCart(productId);
+    updateCartQuantity();
   });
 });
