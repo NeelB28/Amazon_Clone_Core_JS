@@ -9,13 +9,24 @@
 // it has to start with data-xyz (kebab-case format)
 // so data-name will help to attach the name, price etc to the button element using data attributes
 
-export const cart = [];
+export const cart = [
+  {
+    productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+    quantity: 2,
+  },
+  {
+    productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+    quantity: 1,
+  },
+  // deduplicating or normalising the data as we can product from id itself
+];
 // now this variable can be used outside cart.js
 export function addToCart(productId) {
   let matchingItem;
   cart.forEach((cartItem) => {
     if (cartItem.productId === productId) {
-      matchingItem = cartItem; // if we find the matchingitem then it will be an object as item is object and a param name of product object which is a truthy value
+      matchingItem = cartItem; // if we find the matchingitem then it will be an object as cartItem is object and a param name of product object which is a truthy value
+      console.log("fhbkhsdbfvfk" + matchingItem);
     }
   });
 

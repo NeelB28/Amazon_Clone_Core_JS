@@ -2,6 +2,7 @@
 
 import { cart, addToCart } from "../data/cart.js";
 import { products } from "../data/products.js";
+import { formatCurrency } from "./utils/money.js";
 // we need to get out of scripts folder from amazon.js and thus use ..
 
 //const cart = []; // now website won't work coz of naming conflicts but now we have atleast a control from where we are getting this conflict
@@ -83,7 +84,7 @@ products.forEach((product) => {
         </div>
 
         <div class="product-price">
-          ${(product.priceCents / 100).toFixed(2)}
+          $${formatCurrency(product.priceCents)}
         </div>
 
         <div class="product-quantity-container">
