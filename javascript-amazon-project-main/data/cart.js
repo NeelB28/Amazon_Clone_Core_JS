@@ -9,7 +9,7 @@
 // it has to start with data-xyz (kebab-case format)
 // so data-name will help to attach the name, price etc to the button element using data attributes
 
-export const cart = [
+export let cart = [
   {
     productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
     quantity: 2,
@@ -39,3 +39,18 @@ export function addToCart(productId) {
     });
   }
 }
+
+export function removeFromCart(productId) {
+  const newCart = [];
+  cart.forEach((cartItem) => {
+    if (cartItem.productId !== productId) {
+      newCart.push(cartItem);
+    }
+  });
+  cart = newCart;
+}
+
+// two ways to remove from cart
+// 1. Create an Array
+// 2. Loop through the cart
+// 3. Find the item with the matching product id and add each profuct to the new array except for the matching id

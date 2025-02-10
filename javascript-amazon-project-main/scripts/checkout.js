@@ -1,4 +1,4 @@
-import { cart } from "../data/cart.js";
+import { cart, removeFromCart } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js"; //single dot for subfolder
 let cartSummaryHTML = "";
@@ -36,7 +36,9 @@ cart.forEach((cartItem) => {
                 <span class="update-quantity-link link-primary">
                   Update
                 </span>
-                <span class="delete-quantity-link link-primary">
+                <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
+                  matchingProduct.id
+                }">
                   Delete
                 </span>
               </div>
@@ -94,3 +96,17 @@ cart.forEach((cartItem) => {
 // now all the html for this squares is inside the class order-html and so we will replace the order-sumary html with cartsummaryhtml
 
 document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
+document.querySelectorAll(".js-delete-link").forEach((link) => {
+  link.addEventListener("click", () => {
+    const productId = link.dataset.productId;
+    // how do we remove so make an function in cart.js
+
+    removeFromCart(productId);
+    console.log(cart);
+
+    // so to delete the product we will use data-attribute of html so that we can get the data-attribute in the js
+  });
+});
+// () => a passed fucntion notation to avoid names
+// (link) => a passed function with parameter in it
+// link.addEventListener("click", () = > {}) // where "click" is param1 which is of type String and () => {} is param2 which is of type function
