@@ -10,7 +10,9 @@ cart.forEach((cartItem) => {
       matchingProduct = product;
     }
   });
-  cartSummaryHTML += `<div class="cart-item-container">
+  cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${
+    matchingProduct.id
+  }">
           <div class="delivery-date">
             Delivery date: Tuesday, June 21
           </div>
@@ -102,9 +104,16 @@ document.querySelectorAll(".js-delete-link").forEach((link) => {
     // how do we remove so make an function in cart.js
 
     removeFromCart(productId);
-    console.log(cart);
+    const container = document.querySelector(
+      `.js-cart-item-container-${productId}`
+    );
+    container.remove();
 
     // so to delete the product we will use data-attribute of html so that we can get the data-attribute in the js
+
+    // how to remove?
+    // 1. use the dom to get the element to remove
+    // 2. use .remove() method
   });
 });
 // () => a passed fucntion notation to avoid names
