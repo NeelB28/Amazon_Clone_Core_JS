@@ -31,7 +31,7 @@
       </div>
 
       <div class="checkout-header-middle-section">
-        Checkout (<a class="return-to-home-link" href="amazon.html">3 items</a>)
+        Checkout (<a class="return-to-home-link js-return-to-home-link" href="amazon.html"></a>)
       </div>
 
       <div class="checkout-header-right-section">
@@ -83,7 +83,39 @@
       </div>
     </div>
   </div>
+  <!--   
+  We will use DayJs exrternal library for days related deilvery and it is compressed JS code for easy access from the internet and this compression is called minification 
+  
+  So how to use and implement such libraries; so for that it has special documentations which can be found on google
+  -->
   <script type="module" src="scripts/checkout.js"></script>
 </body>
 
 </html>
+
+<!-- 
+  External Library
+  = a code that is outside of our project
+  
+  why we use external libraries?
+  1. We don't have to write code and it let us share code
+  2. save time
+  3. avoid duplicating work
+
+  ex: We can use external libraries like jQuery, Lodash, etc. to make our code more efficient 
+  
+  Best Practice
+  When we need something complicated
+  -try to find an external library first
+  -before writing the code ourselves
+
+  Better way to external libraries is modules
+
+  so ESM version is used
+  ESM = EcmaScript module just another name of javascript
+  A version that works with javascript modules
+
+  Dont put it in script but directly in import
+
+  Also not every libraries does have an ESM version and so for those libraries we need to use scrip tags
+  -->

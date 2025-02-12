@@ -1,6 +1,6 @@
 /// import { cart as Mycart } from "../data/cart.js";
 
-import { cart, addToCart } from "../data/cart.js";
+import { cart, addToCart, calculateCartQuantity } from "../data/cart.js";
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js";
 // we need to get out of scripts folder from amazon.js and thus use ..
@@ -128,16 +128,15 @@ document.querySelector(".js-products-grid").innerHTML = productsHTML;
 // Now last step is to make it interactive
 
 function updateCartQuantity() {
-  let cartQuantity = 0;
-  cart.forEach((cartItem) => {
-    cartQuantity += cartItem.quantity;
-  });
+  const cartQuantity = calculateCartQuantity();
+
   // console.log(cartQuantity);
   // use the dom to put it in webpage
-  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity;
+  document.querySelector(".js-cart-quantity").innerHTML = cartQuantity || "";
+
   // console.log(cart);
 }
-
+updateCartQuantity();
 document.querySelectorAll(".js-add-to-cart").forEach((button) => {
   button.addEventListener("click", () => {
     // for each ka fn fir click pr fn
