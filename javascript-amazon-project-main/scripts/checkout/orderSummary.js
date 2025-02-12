@@ -15,6 +15,7 @@ import {
   deliveryOptions,
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
+import { renderPaymentSummary } from "./paymentSummary.js";
 
 hello();
 // console.log(dayjs());
@@ -162,6 +163,7 @@ export function renderOrderSummary() {
       // how to remove?
       // 1. use the dom to get the element to remove
       // 2. use .remove() method
+      renderPaymentSummary();
       updateCartQuantity();
     });
   });
@@ -219,6 +221,7 @@ export function renderOrderSummary() {
       const { productId, deliveryOptionId } = element.dataset; // shorthand property
       updateDeliveryOption(productId, deliveryOptionId);
       renderOrderSummary(); // recurssion
+      renderPaymentSummary();
     });
     // Update delivery option in the cart and update the page
     // To access productId and deliveryOptionId we can go to html variable string and use data-attribute inside the html written in delivery option because there we have both the ids
