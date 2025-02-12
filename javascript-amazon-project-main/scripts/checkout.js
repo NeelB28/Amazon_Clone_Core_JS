@@ -4,6 +4,7 @@ import {
   calculateCartQuantity,
   updateQuantity,
   saveToStorage,
+  updateDeliveryOption,
 } from "../data/cart.js"; // {xyx} : named export
 import { products } from "../data/products.js";
 import { formatCurrency } from "./utils/money.js"; //single dot for subfolder
@@ -48,6 +49,10 @@ cart.forEach((cartItem) => {
   const today = dayjs();
   const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
   const dateString = deliveryDate.format("dddd, MMMM D");
+
+  // Now we need to make it interactive
+  // 1. Update deilveryOptionId in the cart
+  // 2. Update the page
 
   cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${
     matchingProduct.id
@@ -126,7 +131,9 @@ function deliveryOptionsHTML(matchingProduct, cartItem) {
         : `$${deliveryOption.priceCents / 100} -`;
     const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
-    html += `<div class="delivery-option">
+    html += `<div class="delivery-option js-delivery-option"
+                data-product-id="${matchingProduct.id}"
+                data-delivery-option-id="${deliveryOption.id}">
                 <input type="radio" 
                 ${isChecked ? "checked" : ""}
                 class="delivery-option-input" name="delivery-option-${
@@ -212,6 +219,15 @@ document.querySelectorAll(".js-save-link").forEach((link) => {
     quantityLabel.innerHTML = newQuantity;
     updateCartQuantity();
   });
+});
+
+document.querySelectorAll(".js-delivery-option").forEach((element) => {
+  element.addEventListener("click", () => {
+    const { productId, deliveryOptionId } = element.dataset; // shorthand property
+    updateDeliveryOption(productId, deliveryOptionId);
+  });
+  // Update delivery option in the cart and update the page
+  // To access productId and deliveryOptionId we can go to html variable string and use data-attribute inside the html written in delivery option because there we have both the ids
 });
 
 // Where should we use ${matchingProduct.id} as class and where as data-product-id?
