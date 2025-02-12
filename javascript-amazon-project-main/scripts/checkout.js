@@ -28,208 +28,211 @@ hello();
 // 2. Use the deliveryOptionId to find the correct delivery option
 // 3. Store the delivery option in the deliveryOption variable
 
-let cartSummaryHTML = "";
-cart.forEach((cartItem) => {
-  const productId = cartItem.productId;
-  let matchingProduct;
-  products.forEach((product) => {
-    if (product.id === productId) {
-      matchingProduct = product;
-    }
-  });
+function renderOrderSummary() {
+  let cartSummaryHTML = "";
+  cart.forEach((cartItem) => {
+    const productId = cartItem.productId;
+    let matchingProduct;
+    products.forEach((product) => {
+      if (product.id === productId) {
+        matchingProduct = product;
+      }
+    });
 
-  const deliveryOptionId = cartItem.deliveryOptionId;
-  let deliveryOption;
-  deliveryOptions.forEach((option) => {
-    if (option.id === deliveryOptionId) {
-      deliveryOption = option;
-    }
-  });
+    const deliveryOptionId = cartItem.deliveryOptionId;
+    let deliveryOption;
+    deliveryOptions.forEach((option) => {
+      if (option.id === deliveryOptionId) {
+        deliveryOption = option;
+      }
+    });
 
-  const today = dayjs();
-  const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
-  const dateString = deliveryDate.format("dddd, MMMM D");
-
-  // Now we need to make it interactive
-  // 1. Update deilveryOptionId in the cart
-  // 2. Update the page
-
-  cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${
-    matchingProduct.id
-  }">
-          <div class="delivery-date">
-            Delivery date: ${dateString}
-          </div>
-
-          <div class="cart-item-details-grid">
-            <img class="product-image" src="${matchingProduct.image}">
-
-            <div class="cart-item-details">
-              <div class="product-name">
-              ${matchingProduct.name}
-              </div>
-              <div class="product-price">
-              $${formatCurrency(
-                matchingProduct.priceCents
-              )} <!-- type of utility function to format the price so we will add it to the utils folder under scripts folder -->
-              </div>
-              <div class="product-quantity">
-                <span>
-                  Quantity: <span class="quantity-label js-quantity-label-${
-                    matchingProduct.id
-                  }"></span>
-                </span>
-                <span class="update-quantity-link link-primary js-update-link" data-product-id="${
-                  matchingProduct.id
-                }">
-                  Update
-                </span>
-                <input class="quantity-input js-quantity-input-${
-                  matchingProduct.id
-                }">
-                <span class="save-quantity-link link-primary js-save-link" data-product-id="${
-                  matchingProduct.id
-                }">Save</span>
-                <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
-                  matchingProduct.id
-                }">
-                  Delete
-                </span>
-              </div>
-            </div>
-
-            <div class="delivery-options">
-              <div class="delivery-options-title">
-                Choose a delivery option:
-              </div>
-              ${deliveryOptionsHTML(matchingProduct, cartItem)}
-            </div>
-          </div>
-        </div>
-`;
-});
-
-// now all the html for this squares is inside the class order-html and so we will replace the order-sumary html with cartsummaryhtml
-
-// now after ch-14 for delivery option: instead of writing html manually for delivery options we will generate it using javaScript
-// we will create a function that will generate the delivery option html for us
-
-// Steps
-// 1. Loop through delivery options
-// 2. For each delivery option, generate some html
-// 3. Combine the html pages
-
-function deliveryOptionsHTML(matchingProduct, cartItem) {
-  let html = "";
-  deliveryOptions.forEach((deliveryOption) => {
     const today = dayjs();
     const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
     const dateString = deliveryDate.format("dddd, MMMM D");
-    const priceString =
-      deliveryOption.priceCents === 0
-        ? "FREE Shipping"
-        : `$${deliveryOption.priceCents / 100} -`;
-    const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
-    html += `<div class="delivery-option js-delivery-option"
-                data-product-id="${matchingProduct.id}"
-                data-delivery-option-id="${deliveryOption.id}">
-                <input type="radio" 
-                ${isChecked ? "checked" : ""}
-                class="delivery-option-input" name="delivery-option-${
-                  matchingProduct.id
-                }">
-                <div>
-                  <div class="delivery-option-date">
-                    ${dateString}
-                  </div>
-                  <div class="delivery-option-price">
-                    ${priceString} Shipping
-                  </div>
+    // Now we need to make it interactive
+    // 1. Update deilveryOptionId in the cart
+    // 2. Update the page
+
+    cartSummaryHTML += `<div class="cart-item-container js-cart-item-container-${
+      matchingProduct.id
+    }">
+            <div class="delivery-date">
+              Delivery date: ${dateString}
+            </div>
+
+            <div class="cart-item-details-grid">
+              <img class="product-image" src="${matchingProduct.image}">
+
+              <div class="cart-item-details">
+                <div class="product-name">
+                ${matchingProduct.name}
                 </div>
-              </div>`;
+                <div class="product-price">
+                $${formatCurrency(
+                  matchingProduct.priceCents
+                )} <!-- type of utility function to format the price so we will add it to the utils folder under scripts folder -->
+                </div>
+                <div class="product-quantity">
+                  <span>
+                    Quantity: <span class="quantity-label js-quantity-label-${
+                      matchingProduct.id
+                    }"></span>
+                  </span>
+                  <span class="update-quantity-link link-primary js-update-link" data-product-id="${
+                    matchingProduct.id
+                  }">
+                    Update
+                  </span>
+                  <input class="quantity-input js-quantity-input-${
+                    matchingProduct.id
+                  }">
+                  <span class="save-quantity-link link-primary js-save-link" data-product-id="${
+                    matchingProduct.id
+                  }">Save</span>
+                  <span class="delete-quantity-link link-primary js-delete-link" data-product-id="${
+                    matchingProduct.id
+                  }">
+                    Delete
+                  </span>
+                </div>
+              </div>
+
+              <div class="delivery-options">
+                <div class="delivery-options-title">
+                  Choose a delivery option:
+                </div>
+                ${deliveryOptionsHTML(matchingProduct, cartItem)}
+              </div>
+            </div>
+          </div>
+  `;
   });
-  return html;
+
+  // now all the html for this squares is inside the class order-html and so we will replace the order-sumary html with cartsummaryhtml
+
+  // now after ch-14 for delivery option: instead of writing html manually for delivery options we will generate it using javaScript
+  // we will create a function that will generate the delivery option html for us
+
+  // Steps
+  // 1. Loop through delivery options
+  // 2. For each delivery option, generate some html
+  // 3. Combine the html pages
+
+  function deliveryOptionsHTML(matchingProduct, cartItem) {
+    let html = "";
+    deliveryOptions.forEach((deliveryOption) => {
+      const today = dayjs();
+      const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
+      const dateString = deliveryDate.format("dddd, MMMM D");
+      const priceString =
+        deliveryOption.priceCents === 0
+          ? "FREE Shipping"
+          : `$${deliveryOption.priceCents / 100} -`;
+      const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
+
+      html += `<div class="delivery-option js-delivery-option"
+                  data-product-id="${matchingProduct.id}"
+                  data-delivery-option-id="${deliveryOption.id}">
+                  <input type="radio" 
+                  ${isChecked ? "checked" : ""}
+                  class="delivery-option-input" name="delivery-option-${
+                    matchingProduct.id
+                  }">
+                  <div>
+                    <div class="delivery-option-date">
+                      ${dateString}
+                    </div>
+                    <div class="delivery-option-price">
+                      ${priceString} Shipping
+                    </div>
+                  </div>
+                </div>`;
+    });
+    return html;
+  }
+
+  document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
+  document.querySelectorAll(".js-delete-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const productId = link.dataset.productId;
+      // how do we remove so make an function in cart.js
+
+      removeFromCart(productId);
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+      );
+      container.remove();
+
+      // so to delete the product we will use data-attribute of html so that we can get the data-attribute in the js
+
+      // how to remove?
+      // 1. use the dom to get the element to remove
+      // 2. use .remove() method
+      updateCartQuantity();
+    });
+  });
+  // () => a passed fucntion notation to avoid names
+  // (link) => a passed function with parameter in it
+  // link.addEventListener("click", () = > {}) // where "click" is param1 which is of type String and () => {} is param2 which is of type function
+
+  function updateCartQuantity() {
+    const cartQuantity = calculateCartQuantity();
+
+    document.querySelector(
+      ".js-return-to-home-link"
+    ).innerHTML = `${cartQuantity} items`;
+  }
+
+  updateCartQuantity();
+
+  document.querySelectorAll(".js-update-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const productId = link.dataset.productId;
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+      );
+      container.classList.add("is-editing-quantity");
+    });
+  });
+
+  document.querySelectorAll(".js-save-link").forEach((link) => {
+    link.addEventListener("click", () => {
+      const productId = link.dataset.productId;
+      const container = document.querySelector(
+        `.js-cart-item-container-${productId}`
+      );
+      container.classList.remove("is-editing-quantity");
+      const quantityInput = container.querySelector(
+        `.js-quantity-input-${productId}`
+      );
+      const newQuantity = Number(quantityInput.value);
+      if (newQuantity <= 0 || newQuantity >= 1000) {
+        alert("Quantity should be between 1 and 1000");
+        return;
+      }
+      updateQuantity(productId, newQuantity);
+
+      const quantityLabel = document.querySelector(
+        `.js-quantity-label-${productId}`
+      );
+      quantityLabel.innerHTML = newQuantity;
+      updateCartQuantity();
+    });
+  });
+
+  document.querySelectorAll(".js-delivery-option").forEach((element) => {
+    element.addEventListener("click", () => {
+      const { productId, deliveryOptionId } = element.dataset; // shorthand property
+      updateDeliveryOption(productId, deliveryOptionId);
+      renderOrderSummary(); // recurssion
+    });
+    // Update delivery option in the cart and update the page
+    // To access productId and deliveryOptionId we can go to html variable string and use data-attribute inside the html written in delivery option because there we have both the ids
+  });
 }
-
-document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
-document.querySelectorAll(".js-delete-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    const productId = link.dataset.productId;
-    // how do we remove so make an function in cart.js
-
-    removeFromCart(productId);
-    const container = document.querySelector(
-      `.js-cart-item-container-${productId}`
-    );
-    container.remove();
-
-    // so to delete the product we will use data-attribute of html so that we can get the data-attribute in the js
-
-    // how to remove?
-    // 1. use the dom to get the element to remove
-    // 2. use .remove() method
-    updateCartQuantity();
-  });
-});
-// () => a passed fucntion notation to avoid names
-// (link) => a passed function with parameter in it
-// link.addEventListener("click", () = > {}) // where "click" is param1 which is of type String and () => {} is param2 which is of type function
-
-function updateCartQuantity() {
-  const cartQuantity = calculateCartQuantity();
-
-  document.querySelector(
-    ".js-return-to-home-link"
-  ).innerHTML = `${cartQuantity} items`;
-}
-
-updateCartQuantity();
-
-document.querySelectorAll(".js-update-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    const productId = link.dataset.productId;
-    const container = document.querySelector(
-      `.js-cart-item-container-${productId}`
-    );
-    container.classList.add("is-editing-quantity");
-  });
-});
-
-document.querySelectorAll(".js-save-link").forEach((link) => {
-  link.addEventListener("click", () => {
-    const productId = link.dataset.productId;
-    const container = document.querySelector(
-      `.js-cart-item-container-${productId}`
-    );
-    container.classList.remove("is-editing-quantity");
-    const quantityInput = container.querySelector(
-      `.js-quantity-input-${productId}`
-    );
-    const newQuantity = Number(quantityInput.value);
-    if (newQuantity <= 0 || newQuantity >= 1000) {
-      alert("Quantity should be between 1 and 1000");
-      return;
-    }
-    updateQuantity(productId, newQuantity);
-
-    const quantityLabel = document.querySelector(
-      `.js-quantity-label-${productId}`
-    );
-    quantityLabel.innerHTML = newQuantity;
-    updateCartQuantity();
-  });
-});
-
-document.querySelectorAll(".js-delivery-option").forEach((element) => {
-  element.addEventListener("click", () => {
-    const { productId, deliveryOptionId } = element.dataset; // shorthand property
-    updateDeliveryOption(productId, deliveryOptionId);
-  });
-  // Update delivery option in the cart and update the page
-  // To access productId and deliveryOptionId we can go to html variable string and use data-attribute inside the html written in delivery option because there we have both the ids
-});
-
+renderOrderSummary();
 // Where should we use ${matchingProduct.id} as class and where as data-product-id?
 
 // when you don't know the product ID, but need a way to identify the product, have the element you need to call hold the data-product-id so you can know which product is linked to that element. je element ne bolavo che ene data product id api do to kam thai jse
