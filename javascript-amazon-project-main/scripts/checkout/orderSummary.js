@@ -3,7 +3,6 @@ import {
   removeFromCart,
   calculateCartQuantity,
   updateQuantity,
-  saveToStorage,
   updateDeliveryOption,
 } from "../../data/cart.js"; // {xyx} : named export
 import { products, getProduct } from "../../data/products.js";
@@ -12,10 +11,12 @@ import { hello } from "https://unpkg.com/supersimpledev@1.0.1/hello.esm.js";
 import dayjs from "https://unpkg.com/dayjs@1.11.10/esm/index.js"; // this is default export and we can use it when we want to export only 1 thing
 // each file can have only 1 default export
 import {
+  calculateDeliveryDate,
   deliveryOptions,
   getDeliveryOption,
 } from "../../data/deliveryOptions.js";
 import { renderPaymentSummary } from "./paymentSummary.js";
+import { renderCheckoutHeader } from "./checkoutHeader.js";
 
 hello();
 // console.log(dayjs());
@@ -40,9 +41,7 @@ export function renderOrderSummary() {
 
     const deliveryOptionId = cartItem.deliveryOptionId;
     const deliveryOption = getDeliveryOption(deliveryOptionId);
-    const today = dayjs();
-    const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
-    const dateString = deliveryDate.format("dddd, MMMM D");
+    const dateString = calculateDeliveryDate(deliveryOption);
 
     // Now we need to make it interactive
     // 1. Update deilveryOptionId in the cart
@@ -71,7 +70,7 @@ export function renderOrderSummary() {
                   <span>
                     Quantity: <span class="quantity-label js-quantity-label-${
                       matchingProduct.id
-                    }"></span>
+                    }">${cartItem.quantity}</span>
                   </span>
                   <span class="update-quantity-link link-primary js-update-link" data-product-id="${
                     matchingProduct.id
@@ -116,9 +115,7 @@ export function renderOrderSummary() {
   function deliveryOptionsHTML(matchingProduct, cartItem) {
     let html = "";
     deliveryOptions.forEach((deliveryOption) => {
-      const today = dayjs();
-      const deliveryDate = today.add(deliveryOption.deliveryDays, "days");
-      const dateString = deliveryDate.format("dddd, MMMM D");
+      const dateString = calculateDeliveryDate(deliveryOption);
       const priceString =
         deliveryOption.priceCents === 0
           ? "FREE Shipping"
@@ -147,23 +144,26 @@ export function renderOrderSummary() {
   }
 
   document.querySelector(".js-order-summary").innerHTML = cartSummaryHTML;
+
   document.querySelectorAll(".js-delete-link").forEach((link) => {
     link.addEventListener("click", () => {
       const productId = link.dataset.productId;
       // how do we remove so make an function in cart.js
 
       removeFromCart(productId);
-      const container = document.querySelector(
-        `.js-cart-item-container-${productId}`
-      );
-      container.remove();
+      // const container = document.querySelector(
+      //   `.js-cart-item-container-${productId}`
+      // );
+      // container.remove();
 
       // so to delete the product we will use data-attribute of html so that we can get the data-attribute in the js
 
       // how to remove?
       // 1. use the dom to get the element to remove
       // 2. use .remove() method
+      renderOrderSummary();
       renderPaymentSummary();
+      renderCheckoutHeader();
       updateCartQuantity();
     });
   });
@@ -173,10 +173,6 @@ export function renderOrderSummary() {
 
   function updateCartQuantity() {
     const cartQuantity = calculateCartQuantity();
-
-    document.querySelector(
-      ".js-return-to-home-link"
-    ).innerHTML = `${cartQuantity} items`;
   }
 
   updateCartQuantity();
@@ -213,6 +209,8 @@ export function renderOrderSummary() {
       );
       quantityLabel.innerHTML = newQuantity;
       updateCartQuantity();
+      renderPaymentSummary();
+      renderCheckoutHeader();
     });
   });
 
@@ -253,3 +251,9 @@ export function renderOrderSummary() {
 // Technically yes, you could have the js-quantity-input hold the productID with data-product-id, and we can do a query all and run a foreach to iterate through all these quantity input elements, trying to match the productID we have to the productID that the input element contains but this would be incredibly inefficient because we already have the ID. Why waste time checking every single item in the cart when we can go straight to it.
 
 // Hope this explanation helps
+
+// Disadvantage of Manual Testing
+// 1. Hard to test every situation
+// 2. Hard to re-test
+
+// For that we have automated testing = using code to test the code
