@@ -261,3 +261,8 @@ export function renderOrderSummary() {
 // TESTING FRAMEWORK == external library that help us write tests easier
 // We are using Jasmine over here
 // There are other testing frameworks too like Jest(for ReactJS) and MochaJS; they all works almost similarly
+// is jasmine spec = test
+// 1. It create test suite
+// 2. Create tests
+// 3. Compare values and display result
+// Testing framework = external library that helps us write tests easier
