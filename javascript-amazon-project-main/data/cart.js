@@ -12,22 +12,27 @@
 //here we will intially get the item cart from the local storage which we set below
 // in add to cart and remove from cart fucntion
 // now getItem will only take one string "name which to be accessed" and is of string type from localStorage but here let cart is an object so convert it first to object using JSON.parse();
-export let cart = JSON.parse(localStorage.getItem("cart"));
-if (!cart) {
-  cart = [
-    {
-      productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
-      quantity: 2,
-      deliveryOptionId: "1",
-    },
-    {
-      productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
-      quantity: 1,
-      deliveryOptionId: "2",
-    },
-    // deduplicating or normalising the data as we can product from id itself
-  ];
-  // now this variable can be used outside cart.js
+export let cart;
+loadFromStorage();
+
+export function loadFromStorage() {
+  cart = JSON.parse(localStorage.getItem("cart"));
+  if (!cart) {
+    cart = [
+      {
+        productId: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
+        quantity: 2,
+        deliveryOptionId: "1",
+      },
+      {
+        productId: "15b6fc6f-327a-4ec4-896f-486349e85a3d",
+        quantity: 1,
+        deliveryOptionId: "2",
+      },
+      // deduplicating or normalising the data as we can product from id itself
+    ];
+    // now this variable can be used outside cart.js
+  }
 }
 
 export function saveToStorage() {
