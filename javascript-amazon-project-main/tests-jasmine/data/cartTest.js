@@ -1,9 +1,4 @@
-import {
-  addToCart,
-  cart,
-  loadFromStorage,
-  updateDeliveryOption,
-} from "../../data/cart.js";
+import { addToCart, cart, loadFromStorage } from "../../data/cart.js";
 
 describe("test suite: addToCart", () => {
   it("adds an existing product to the cart", () => {
@@ -50,3 +45,6 @@ describe("test suite: addToCart", () => {
 
 // So we will use Mocks
 // it let us replace a method with fake version
+
+// until now it was 1 unit test check
+// now we want to test multiple things at a time; integration test: multiple unit test (uses many diff pieces of code together)
