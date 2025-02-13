@@ -257,3 +257,7 @@ export function renderOrderSummary() {
 // 2. Hard to re-test
 
 // For that we have automated testing = using code to test the code
+
+// TESTING FRAMEWORK == external library that help us write tests easier
+// We are using Jasmine over here
+// There are other testing frameworks too like Jest(for ReactJS) and MochaJS; they all works almost similarly
