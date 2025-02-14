@@ -2,6 +2,8 @@ import formatCurrency from "../scripts/utils/money.js";
 
 // now we will apply concept of class to convert this objects into class
 
+// now in a cart we can have different categories of product class like electonics, accessories, garments and the properties and methods like size for clothes might vary so we migh need additional stuff for those thing and there we can introduce inheritance where we give properties and methods of parent classes but also provide some new methods and properties too; i.e. known as inheritance
+
 class Product {
   id;
   image;
@@ -23,7 +25,53 @@ class Product {
   getPrice() {
     return `$${formatCurrency(this.priceCents)}`;
   }
+
+  extraInfoHTML() {
+    return "";
+  }
 }
+
+// syntax of inheritancce
+// Also not that if we dont create a constructor then by default it wil run the parents constructor and that's why if the Clothing class is empty then the code will still run
+// But there is a problem now that we converted all of the products into Product class but some of them belongs to Clothing class too and some others to other class then how are we going to know which product belongs to which class
+// so for that we have a self-created property/variable called: type and thus type will help to categorize product into their respective classes
+// and thus this property is known as a Discriminator property which helps us to discriminate that where the product should belong to which class
+// but now again when we send this extrInfoHTML() to amazon.js then we don't know to what class it belongs whether Product or Clothing class
+// so there comes POLYMORPHISM which means we can use a method without knowing the class
+// so instead of doing if/else we let class class decide what this method does
+class Clothing extends Product {
+  sizeChartLink;
+  // constructor of Clothing itself
+  constructor(productDetails) {
+    // now instead of one by one inheriting parent's properties let us use a
+    // super() basically calls the constructor of the parent class i.e. Product and it will set id, name etc..
+    super(productDetails); // this SUPER calls a constructor
+    this.sizeChartLink = productDetails.sizeChartLink;
+  }
+  extraInfoHTML() {
+    // super.extraInfoHTML(); // this super calls a method but here we need to override so commenting
+    return `
+      <a href="${this.sizeChartLink}" target="_blank">Size chart</a>
+    `;
+  } // method OVERRIDING: overrides the method of parent class
+}
+
+// how we can  pass a param i.e. coz of inheritance on constructor class of Product and we are passing productDetails
+// const tshirt = new Clothing({
+//   id: "83d4ca15-0f35-48f5-b7a3-1ea210004f2e",
+//   image: "images/products/adults-plain-cotton-tshirt-2-pack-teal.jpg",
+//   name: "Adults Plain Cotton T-Shirt - 2 Pack",
+//   rating: {
+//     stars: 4.5,
+//     count: 56,
+//   },
+//   priceCents: 799,
+//   keywords: ["tshirts", "apparel", "mens"],
+//   type: "clothing",
+//   sizeChartLink: "images/clothing-size-chart.png",
+// });
+// console.log(tshirt);
+// console.log(tshirt.getPrice()); // so child object tshirt of class Clothing (child of Parent class) got the method getPrice of Parent class through inheritance
 
 // so here we passed productDetails in param for our constructor; we are converting/wrapping obj into class
 // const product1 = new Product({
@@ -534,6 +582,9 @@ export const products = [
     keywords: ["sweaters", "hoodies", "apparel", "mens"],
   },
 ].map((productDetails) => {
+  if (productDetails.type === "clothing") {
+    return new Clothing(productDetails);
+  }
   return new Product(productDetails);
 });
 

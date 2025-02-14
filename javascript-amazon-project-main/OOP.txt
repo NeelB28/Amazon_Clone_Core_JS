@@ -34,3 +34,17 @@ More details about Constructor
 2. Should not return anything
 
 Private can only be accesed inside the class
+
+Inheritance let's reuse the code between classes
+
+Also not that if we dont create a constructor then by default it wil run the parents constructor and that's why if the Clothing class is empty then the code will still run
+
+But there is a problem now that we converted all of the products into Product class but some of them belongs to Clothing class too and some others to other class then how are we going to know which product belongs to which class
+
+so for that we have a self-created property/variable called: type and thus type will help to categorize product into their respective classes
+and thus this property is known as a Discriminator property which helps us to discriminate that where the product should belong to which class
+
+but now again when we send this extrInfoHTML() to amazon.js then we don't know to what class it belongs whether Product or Clothing class
+so there comes POLYMORPHISM which means we can use a method without knowing the class
+
+so instead of doing if/else we let class class decide what this method does
