@@ -58,10 +58,12 @@ export function renderOrderSummary() {
               <img class="product-image" src="${matchingProduct.image}">
 
               <div class="cart-item-details">
-                <div class="product-name">
+                <div class="product-name js-product-name-${matchingProduct.id}">
                 ${matchingProduct.name}
                 </div>
-                <div class="product-price">
+                <div class="product-price js-product-price-${
+                  matchingProduct.id
+                }">
                 $${formatCurrency(
                   matchingProduct.priceCents
                 )} <!-- type of utility function to format the price so we will add it to the utils folder under scripts folder -->
@@ -124,14 +126,18 @@ export function renderOrderSummary() {
           : `$${deliveryOption.priceCents / 100} -`;
       const isChecked = deliveryOption.id === cartItem.deliveryOptionId;
 
-      html += `<div class="delivery-option js-delivery-option"
+      html += `<div class="delivery-option js-delivery-option js-delivery-option-${
+        matchingProduct.id
+      }-${deliveryOption.id}"
                   data-product-id="${matchingProduct.id}"
                   data-delivery-option-id="${deliveryOption.id}">
                   <input type="radio" 
                   ${isChecked ? "checked" : ""}
-                  class="delivery-option-input" name="delivery-option-${
+                  class="delivery-option-input js-delivery-option-input-${
                     matchingProduct.id
-                  }">
+                  }-${deliveryOption.id}" name="delivery-option-${
+        matchingProduct.id
+      }">
                   <div>
                     <div class="delivery-option-date">
                       ${dateString}

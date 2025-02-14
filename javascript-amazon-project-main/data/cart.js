@@ -12,6 +12,7 @@
 //here we will intially get the item cart from the local storage which we set below
 // in add to cart and remove from cart fucntion
 // now getItem will only take one string "name which to be accessed" and is of string type from localStorage but here let cart is an object so convert it first to object using JSON.parse();
+import { validDeliveryOption } from "./deliveryOptions.js";
 export let cart;
 loadFromStorage();
 
@@ -102,6 +103,12 @@ export function updateDeliveryOption(productId, deliveryOptionId) {
       matchingItem = cartItem;
     }
   });
+  if (!matchingItem) {
+    return;
+  }
+  if (!validDeliveryOption(deliveryOptionId)) {
+    return;
+  }
 
   matchingItem.deliveryOptionId = deliveryOptionId;
   saveToStorage();

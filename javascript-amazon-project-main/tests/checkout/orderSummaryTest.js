@@ -1,6 +1,6 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
-
+import { renderPaymentSummary } from "../../scripts/checkout/paymentSummary.js";
 // 2 things to test for orderSummary
 // 1. How the page looks
 // 2. How the page behaves
@@ -34,6 +34,10 @@ describe("test suite: renderOrderSummary", () => {
     renderOrderSummary();
   }); // beforeEach hook
 
+  afterEach(() => {
+    document.querySelector(".js-test-container").innerHTML = ""; // TO MAKE SPACE FOR TEST CODES NOTHING ELSE
+  });
+
   it("displays the cart", () => {
     expect(document.querySelectorAll(".js-cart-item-container").length).toEqual(
       2
@@ -44,8 +48,18 @@ describe("test suite: renderOrderSummary", () => {
     expect(
       document.querySelector(`.js-product-quantity-${productId2}`).innerText
     ).toContain("Quantity: 1"); // inner value checking
-
-    document.querySelector(".js-test-container").innerHTML = ""; // TO MAKE SPACE FOR TEST CODES NOTHING ELSE
+    expect(
+      document.querySelector(`.js-product-name-${productId1}`).innerText
+    ).toEqual("Black and Gray Athletic Cotton Socks - 6 Pairs");
+    expect(
+      document.querySelector(`.js-product-name-${productId2}`).innerText
+    ).toEqual("Intermediate Size Basketball");
+    expect(
+      document.querySelector(`.js-product-price-${productId1}`).innerText
+    ).toEqual("$10.90");
+    expect(
+      document.querySelector(`.js-product-price-${productId2}`).innerText
+    ).toEqual("$20.95");
   });
 
   it("removes a product", () => {
@@ -67,8 +81,32 @@ describe("test suite: renderOrderSummary", () => {
     expect(cart.length).toEqual(1);
     expect(cart[0].productId).toEqual(productId2);
     // as removeFromCart evokes localStorage so to avoid the flaky test in our tests we need to mock localStorage (recommended not to modift localStorage)
+    expect(
+      document.querySelector(`.js-product-name-${productId2}`).innerText
+    ).toEqual("Intermediate Size Basketball");
+    expect(
+      document.querySelector(`.js-product-price-${productId2}`).innerText
+    ).toEqual("$20.95");
   });
-  document.querySelector(".js-test-container").innerHTML = ""; // TO MAKE SPACE FOR TEST CODES NOTHING ELSE
+
+  it("updates the deliverey option: ", () => {
+    document.querySelector(`.js-delivery-option-${productId1}-3`).click(); // product1-3 option it is click()/ed or not
+
+    expect(
+      document.querySelector(`.js-delivery-option-input-${productId1}-3`)
+        .checked
+    ).toEqual(true); // expect it to be equal to true; simple english terms
+
+    expect(cart.length).toEqual(2); // only two products in spyOn and we are updating the qty not adding new products so total cart qty should be 2
+    expect(cart[0].productId).toEqual(productId1); // check if productId1 matches first product in cart array
+    expect(cart[0].deliveryOptionId).toEqual("3"); // similarly checking deliveryOptionId in cart array
+    expect(
+      document.querySelector(".js-payment-summary-shipping").innerText
+    ).toEqual("$14.98"); // for 3rd deliver option only we are verifying
+    expect(
+      document.querySelector(".js-payment-summary-total").innerText
+    ).toEqual("$63.50"); // for 3rd deliver option only we are verifying
+  });
 });
 
 // So this is an integration Test = tests many units/pieces of code working together
