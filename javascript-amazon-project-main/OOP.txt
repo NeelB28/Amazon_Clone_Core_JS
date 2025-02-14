@@ -1,0 +1,18 @@
+Procedural Programming
+Procedural programming is a programming paradigm that focuses on procedures or functions that perform specific tasks. It is a set of step-by-step instruction = a function
+
+OOP (Object Oriented Programming)
+Organize our code into Objects
+
+Why do we use OOP?
+It tries to represent the real world
+- Encapsulation: Hiding the internal details of an object from the outside world
+- Inheritance: Creating a new object based on an existing object
+- Polymorphism: The ability of an object to take on multiple forms
+- Abstraction: Hiding the implementation details of an object from the outside world
+
+Easy to create multiple objecrs
+
+We can use a function to create/generate multple objects
+
+Use PascalCase for things that generate objects: start every word with a capital
