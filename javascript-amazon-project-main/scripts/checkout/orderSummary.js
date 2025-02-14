@@ -64,9 +64,7 @@ export function renderOrderSummary() {
                 <div class="product-price js-product-price-${
                   matchingProduct.id
                 }">
-                $${formatCurrency(
-                  matchingProduct.priceCents
-                )} <!-- type of utility function to format the price so we will add it to the utils folder under scripts folder -->
+                ${matchingProduct.getPrice()} <!-- type of utility function to format the price so we will add it to the utils folder under scripts folder -->
                 </div>
                 <div class="product-quantity
                 js-product-quantity-${matchingProduct.id}">
