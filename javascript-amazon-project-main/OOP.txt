@@ -15,4 +15,20 @@ Easy to create multiple objecrs
 
 We can use a function to create/generate multple objects
 
-Use PascalCase for things that generate objects: start every word with a capital
+Use PascalCase for things that generate objects/class: start every word with a capital
+class = obj generator
+
+OOP = organizing our code into objects (tries to represent the real world)
+class = help us generate these object; basically class is an object generator
+
+Features of class
+1. Constructor = let us run setup code after creating an object; it let us put set up code inside the class & ehlp us make code look cleaner
+
+SET UP CODE (SETUP this)
+
+  this.localStorageKey = localStorageKey; // this will point to the object we will create let say object is businessCart then this will point businessCart
+  this.loadFromStorage();// this will run the loadFromStorage function inside the class
+
+More details about Constructor
+1. It has to be named "constructor"
+2. Should not return anything
