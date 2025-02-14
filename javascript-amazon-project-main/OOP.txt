@@ -37,6 +37,12 @@ Private can only be accesed inside the class
 
 Inheritance let's reuse the code between classes
 
+this let's an object access its own properties; this can be used anywhere in the code console.log(this); // undefined would be output
+summary of this
+1. Inside a method, "this" points to the outer object
+2. Inside a function this = undefined; but we can change it; using .call()
+3. Arrow functions do not change the value of this
+
 Also not that if we dont create a constructor then by default it wil run the parents constructor and that's why if the Clothing class is empty then the code will still run
 
 But there is a problem now that we converted all of the products into Product class but some of them belongs to Clothing class too and some others to other class then how are we going to know which product belongs to which class
@@ -48,3 +54,5 @@ but now again when we send this extrInfoHTML() to amazon.js then we don't know t
 so there comes POLYMORPHISM which means we can use a method without knowing the class
 
 so instead of doing if/else we let class class decide what this method does
+
+Built in classes are the classes that are providrd by the language ex: Date()

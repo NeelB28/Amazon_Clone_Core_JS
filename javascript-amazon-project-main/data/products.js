@@ -97,6 +97,35 @@ export function getProduct(productId) {
   return matchingProduct;
 }
 
+/*
+const date = new Date();
+console.log(date);
+console.log(date.toLocaleTimeString());
+*/
+
+/*
+console.log(this); // undefined
+const object2 = {
+  a: 2,
+  b: this.a, // erro because 'this' is undefined because there is no object to point to
+};
+*/
+
+/*
+function logThis() {
+  console.log(this); // again undefined coz nowhere to point to; but inside a fn we can change 'this' to whatever we want using method .call
+}
+logThis();
+logThis.call("hello");
+
+// arrow fns do not change the value of this; so what is inside of forEach for this that will outside of forEach for this
+const object3 = {
+  method: () => {
+    console.log(this);
+  },
+};
+object3.method(); // this here too undefined
+*/
 // export const products = [
 //   new Product({
 //     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
