@@ -3,7 +3,8 @@ import { validDeliveryOption } from "./deliveryOptions.js";
 // inside class we will put method and properties
 class Cart {
   cartItems = undefined; // that is the syntax of adding poperties to the class
-  localStorageKey; // same declaration as above but shortcut
+  #localStorageKey; // private property syntax #xyz
+  //localStorageKey; // same declaration as above but shortcut
 
   // just for param ref but best prac is as below
   // constructor(localStorageKeyConstructorReference) {
@@ -12,13 +13,14 @@ class Cart {
   // }
 
   constructor(localStorageKey) {
-    this.localStorageKey = localStorageKey; // this will point to the object we will create let say object is businessCart then this will point businessCart
-    this.loadFromStorage();
+    this.#localStorageKey = localStorageKey; // this will point to the object we will create let say object is businessCart then this will point businessCart
+    this.#loadFromStorage();
   }
 
   // we dont put , at the end of methods {} (not allowed {},)
-  loadFromStorage() {
-    this.cartItems = JSON.parse(localStorage.getItem(this.localStorageKey));
+  // #privateMethod
+  #loadFromStorage() {
+    this.cartItems = JSON.parse(localStorage.getItem(this.#localStorageKey));
     if (!this.cartItems) {
       this.cartItems = [
         {
@@ -36,7 +38,7 @@ class Cart {
   }
 
   saveToStorage() {
-    localStorage.setItem(this.localStorageKey, JSON.stringify(this.cartItems));
+    localStorage.setItem(this.#localStorageKey, JSON.stringify(this.cartItems));
   }
 
   addToCart(productId) {
@@ -112,11 +114,11 @@ class Cart {
 const cart = new Cart("cart-oop");
 const businessCart = new Cart("cart-business");
 
-// cart.localStorageKey = "cart-oop";
+// cart.localStorageKey = "aaaaa"; what if someone from team mistakenly changes the property so for that pvt keyword comes into picture
 // businessCart.localStorageKey = "cart-business";
 
-cart.loadFromStorage();
-businessCart.loadFromStorage();
+// cart.loadFromStorage(); it will show error as method declared pvt
+// businessCart.loadFromStorage();
 console.log(cart); // will display 3 products coz of localStorage store though commented product has been added already
 console.log(businessCart);
 

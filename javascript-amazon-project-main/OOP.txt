@@ -32,3 +32,5 @@ SET UP CODE (SETUP this)
 More details about Constructor
 1. It has to be named "constructor"
 2. Should not return anything
+
+Private can only be accesed inside the class
