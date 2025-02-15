@@ -155,6 +155,7 @@ object3.method(); // this here too undefined
 //     keywords: ["socks", "sports", "apparel"],
 //   }), this will basically convert our object into class but then we will have to repeat the process; instead loop through array
 
+/*
 export const products = [
   {
     id: "e43638ce-6aa0-4b85-b27f-e1d07eb678c6",
@@ -648,6 +649,8 @@ export const products = [
   }
 });
 
+*/
+
 // what map say that we are mapping product[].map(productDetails) i.e. mapping productDetails out of produts array at that time productDetails is products only and we will pass it new class and it will automatically set up id, name etc.. when we pass that productDetails of that products array to the class
 
 // (42) [Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product] // now notice each of them is a class to confirm it starts with PascalCase "P"
@@ -663,3 +666,32 @@ export const products = [
 //  product3,       ->  function        new Product(product3),
 //  ...                                 ...
 // ]                                  ]
+
+// Now we will load json of backend
+
+export let products = [];
+// function to load Products from the backend
+export function loadProducts(fun) {
+  // now we will create XMLHHttpRequest to the backend of supersimpledev to generate a new request object
+  const xhr = new XMLHttpRequest(); // xhr is object
+  xhr.addEventListener("load", () => {
+    // if the request is successful then we will get the response from the backend
+    // console.log(xhr.response);
+    products = JSON.parse(xhr.response).map((productDetails) => {
+      if (productDetails.type === "clothing") {
+        return new Clothing(productDetails);
+      } else if (productDetails.type === "appliance") {
+        return new Appliance(productDetails);
+      } else {
+        return new Product(productDetails);
+      }
+    });
+    fun(); // callback - a function to run in the future
+    console.log("load products");
+  });
+  // now we will open the request
+  xhr.open("GET", "https://supersimplebackend.dev/products"); // true is
+  // now we will send the request to the backend and it is async so to wait we will add event listener
+  xhr.send();
+}
+loadProducts();
