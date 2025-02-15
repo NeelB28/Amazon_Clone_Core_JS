@@ -6,29 +6,28 @@ our computer(Frontend) ---info()--->---->info()----info()---->---- ownded by ama
 our computer ---- internet ---- Backend
 it uses HTTP: HyperText Tranfer Protocol
 
+
+PROMISES
+- better way to handle asynchronous code
+- similar to done() function
+- let us wait for some code to finish, before     going to the next step
+
+
+Why we use Promises?
+Because multiple callbacks cause a lot of nesting
+and it is hard to read and understand the code
+Promises help us flatten our code
+
+that s why it is recommended to use promises instead of callbacks to keep our code clean
+
+
+
+
 # What is HTTP?
 HTTP is a protocol that allows our computer to send information to the Backend. It is a set of 
 rules that our computer follows to send information to the Backend.
 attach orderMessage and it will carry to Backend
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-# What is HTTP?
-HTTP is a protocol that allows our computer to send information to the Backend. It is a set of 
-rules that our computer follows to send information to the Backend.
 # What is a Protocol?
 A protocol is a set of rules that our computer follows to communicate with another computer.
 # What is a Server?

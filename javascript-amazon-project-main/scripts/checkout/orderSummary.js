@@ -18,7 +18,7 @@ import {
 import { renderPaymentSummary } from "./paymentSummary.js";
 import { renderCheckoutHeader } from "./checkoutHeader.js";
 
-hello();
+//hello();
 // console.log(dayjs());
 // Calculate Delivery dates
 // 1. Get today's date

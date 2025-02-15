@@ -677,7 +677,7 @@ export let products = [];
 
 // products.js
 // Add a default function to the loadProducts function to ensure fun is always a function.
-export function loadProducts(fun = () => {}) {
+export function loadProducts(fun) {
   // now we will create XMLHHttpRequest to the backend of supersimpledev to generate a new request object
   const xhr = new XMLHttpRequest(); // xhr is object
   xhr.addEventListener("load", () => {
@@ -700,4 +700,3 @@ export function loadProducts(fun = () => {}) {
   // now we will send the request to the backend and it is async so to wait we will add event listener
   xhr.send();
 }
-loadProducts();
