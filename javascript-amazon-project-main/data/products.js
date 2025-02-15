@@ -693,7 +693,6 @@ export function loadProducts(fun) {
       }
     });
     fun(); // callback - a function to run in the future
-    console.log("load products");
   });
   // now we will open the request
   xhr.open("GET", "https://supersimplebackend.dev/products"); // true is
@@ -720,7 +719,6 @@ export function loadProductsFetch() {
           return new Product(productDetails);
         }
       });
-      console.log("load products");
     });
   return promise;
   // by default fetch will make "GET" request

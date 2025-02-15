@@ -25,6 +25,12 @@ FETCH
 - fetch() = function is used to send HTTP requests/ better way to make HTTP requests
 
 
+Async Await
+- it is even a better way to handle asynchronous code
+- it is a shortcut for promises
+- async = makes a function return a promise
+
+
 
 # What is HTTP?
 HTTP is a protocol that allows our computer to send information to the Backend. It is a set of 
