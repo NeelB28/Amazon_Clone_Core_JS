@@ -2,6 +2,7 @@ import { cart, calculateCartQuantity } from "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
+import { addOrder } from "../../data/orders.js";
 // save data, generate html, make interactive
 // Loop through the cart, for each product, price*quantity
 // Add everything together
@@ -63,9 +64,39 @@ export function renderPaymentSummary() {
             )}</div>
           </div>
 
-          <button class="place-order-button button-primary">
+          <button class="place-order-button button-primary js-place-order">
             Place your order
           </button>
     `;
   document.querySelector(".js-payment-summary").innerHTML = paymentSummaryHTML;
+  document
+    .querySelector(".js-place-order")
+    .addEventListener("click", async () => {
+      try {
+        const response = await fetch("https://supersimplebackend.dev/orders", {
+          // will wait to get the link and then go to the next line
+          method: "POST",
+          // headers are present in network section of inspect page
+          // headers gives the backend more info about our request
+          headers: {
+            "Content-Type": "application/json", // it says what type of data we are sending it json so ultimately cart onject
+          },
+          body: JSON.stringify({
+            // cart object is the data we are sending to backend
+            cart: cart,
+          }),
+        }); // we need send our cart to backend to create order
+        // so there are 4 types of requests; so we will use one of them; here POST will be use to send the data to backend and GET is recieving data and sending request
+        const order = await response.json();
+        // we are sending the data to backend and we are getting the order back
+        // so we are going to redirect to order page
+        addOrder(order);
+        console.log(order);
+      } catch (error) {
+        console.log("Unexpected error. Try again later.");
+      }
+      window.location.href = "orders.html"; // is special obj by js let us control url at the top of the browser
+      // if we change the location of obj it will change the url
+      // http://127.0.0.1:5502/javascript-amazon-project-main/ here after / abpve window.lock will come and url will be different
+    });
 }
