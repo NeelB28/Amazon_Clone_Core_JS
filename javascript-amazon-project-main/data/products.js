@@ -700,3 +700,34 @@ export function loadProducts(fun) {
   // now we will send the request to the backend and it is async so to wait we will add event listener
   xhr.send();
 }
+
+// here XMLHttpRequest uses callback but fetch() uses Promise to send a request
+// so we will use fetch() instead of XMLHttpRequest
+
+export function loadProductsFetch() {
+  // now we will create a new request object
+  const promise = fetch("https://supersimplebackend.dev/products")
+    .then((response) => {
+      return response.json(); // it is asyn and returns a promise
+    })
+    .then((productsData) => {
+      products = productsData.map((productDetails) => {
+        if (productDetails.type === "clothing") {
+          return new Clothing(productDetails);
+        } else if (productDetails.type === "appliance") {
+          return new Appliance(productDetails);
+        } else {
+          return new Product(productDetails);
+        }
+      });
+      console.log("load products");
+    });
+  return promise;
+  // by default fetch will make "GET" request
+  // now we will get the response from the backend
+  // here it uses promise instead of callback for responsw
+}
+
+// loadProductsFetch().then(() => {
+//   console.log("next step");
+// });

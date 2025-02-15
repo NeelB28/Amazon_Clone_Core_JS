@@ -1,7 +1,7 @@
 import { renderOrderSummary } from "../../scripts/checkout/orderSummary.js";
 import { loadFromStorage, cart } from "../../data/cart.js";
 import { renderPaymentSummary } from "../../scripts/checkout/paymentSummary.js";
-import { loadProducts } from "../../data/products.js";
+import { loadProducts, loadProductsFetch } from "../../data/products.js";
 
 // 2 things to test for orderSummary
 // 1. How the page looks
@@ -10,9 +10,14 @@ describe("test suite: renderOrderSummary", () => {
   const productId1 = "e43638ce-6aa0-4b85-b27f-e1d07eb678c6";
   const productId2 = "15b6fc6f-327a-4ec4-896f-486349e85a3d";
   beforeAll((done) => {
-    loadProducts(() => {
+    //loadProducts(() => {
+    loadProductsFetch().then(() => {
       done();
-    }); // still tests fail and here loadproducts is async that means it just sends request to the backend but does not wait for the responses to come and so continue with the rest of the task code; unfortunalety yet response is not back and so products is still and empty array so to fix this issue we need to wait for load products to finish first and for this JASMINE provides a function called done which waits for a task to get complete/done
+    });
+    // (() => {
+    //   done();
+    // });
+    // still tests fail and here loadproducts is async that means it just sends request to the backend but does not wait for the responses to come and so continue with the rest of the task code; unfortunalety yet response is not back and so products is still and empty array so to fix this issue we need to wait for load products to finish first and for this JASMINE provides a function called done which waits for a task to get complete/done
   });
   beforeEach(() => {
     spyOn(localStorage, "setItem");

@@ -21,6 +21,9 @@ Promises help us flatten our code
 that s why it is recommended to use promises instead of callbacks to keep our code clean
 
 
+FETCH
+- fetch() = function is used to send HTTP requests/ better way to make HTTP requests
+
 
 
 # What is HTTP?

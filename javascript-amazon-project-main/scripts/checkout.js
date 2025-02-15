@@ -1,7 +1,7 @@
 import { renderCheckoutHeader } from "./checkout/checkoutHeader.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
-import { loadProducts } from "../data/products.js";
+import { loadProducts, loadProductsFetch } from "../data/products.js";
 import { loadCart } from "../data/cart.js";
 //import "../data/cart-oop.js"; // this just runs all the code inside this file without importing anything & that is what we need in this situation to run only this in console
 // import "../data/cart-class.js";
@@ -14,11 +14,14 @@ import { loadCart } from "../data/cart.js";
 // if any of the promises in the array reject, then Promise.all() will reject immediately
 
 Promise.all([
-  new Promise((resolve) => {
-    loadProducts(() => {
-      resolve("value1"); // so whatever we are going to give in resolve is going to be save in a parameter inside .then
-    });
-  }),
+  loadProductsFetch(), // it will make our code cleaner as fetch returns promise only and we don't need to write extra code as below
+
+  // new Promise((resolve) => {
+  //   loadProducts(() => {
+  //     resolve("value1"); // so whatever we are going to give in resolve is going to be save in a parameter inside .then
+  //   });
+  // }) // now commenting this promise coz using fetch and it returns promise only
+
   new Promise((resolve) => {
     loadCart(() => {
       resolve();
