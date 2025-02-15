@@ -671,7 +671,13 @@ export const products = [
 
 export let products = [];
 // function to load Products from the backend
-export function loadProducts(fun) {
+// To solve the error Uncaught TypeError: fun is not a function, you need to ensure that the fun parameter passed to the loadProducts function is indeed a function. If fun is not provided, you can provide a default function to avoid the error.
+
+// Here are the changes needed:
+
+// products.js
+// Add a default function to the loadProducts function to ensure fun is always a function.
+export function loadProducts(fun = () => {}) {
   // now we will create XMLHHttpRequest to the backend of supersimpledev to generate a new request object
   const xhr = new XMLHttpRequest(); // xhr is object
   xhr.addEventListener("load", () => {
