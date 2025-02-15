@@ -694,12 +694,16 @@ export function loadProducts(fun) {
     });
     fun(); // callback - a function to run in the future
   });
+
+  // xhr.addEventListener("error", () => {
+  //   console.log("Error loading products");
+  // }); try changing the url and see the output
+
   // now we will open the request
   xhr.open("GET", "https://supersimplebackend.dev/products"); // true is
   // now we will send the request to the backend and it is async so to wait we will add event listener
   xhr.send();
 }
-
 // here XMLHttpRequest uses callback but fetch() uses Promise to send a request
 // so we will use fetch() instead of XMLHttpRequest
 
@@ -720,12 +724,16 @@ export function loadProductsFetch() {
         }
       });
     });
+  // .catch(() => {
+  //   console.log("Error loading products");
+  // }); // handles error
   return promise;
   // by default fetch will make "GET" request
   // now we will get the response from the backend
   // here it uses promise instead of callback for responsw
 }
 
+loadProductsFetch();
 // loadProductsFetch().then(() => {
 //   console.log("next step");
 // });

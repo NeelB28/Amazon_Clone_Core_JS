@@ -31,6 +31,18 @@ Async Await
 - async = makes a function return a promise
 
 
+Try/cath
+We can use try/cath with synchronous code(or normal code)
+whenever we get an error will skip the rest of the code
+use where errors occur are out of our control; its meant to handle unexpected error (code correct but out of our control)
+
+
+
+Throw
+- we can use throw to create an error
+- any type of value string, number etc
+
+
 
 # What is HTTP?
 HTTP is a protocol that allows our computer to send information to the Backend. It is a set of 

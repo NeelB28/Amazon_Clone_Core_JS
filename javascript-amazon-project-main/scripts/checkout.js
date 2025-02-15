@@ -21,21 +21,30 @@ import { loadCart } from "../data/cart.js";
 // but it is still asynchronous under the hood but less write like a normal code
 // await needs to be the closest to async function if in bw other fn comes then await can't be used
 async function loadPage() {
-  await loadProductsFetch();
-  // so await will let us wirte async code like normal and will wait till this above fetch which returns promise is fetched and after that goes to next line of code so we skipped the part of .then
+  try {
+    // throw "error1";
+    await loadProductsFetch();
+    // so await will let us wirte async code like normal and will wait till this above fetch which returns promise is fetched and after that goes to next line of code so we skipped the part of .then
 
-  // to avoid writing then value3 will be stored directly in value variable
-  // const value = await new Promise((resolve) => {
-  //   loadCart(() => {
-  //     resolve("value3");
-  //   });
-  // });
+    // to avoid writing then value3 will be stored directly in value variable
+    // const value = await new Promise((resolve) => {
+    //   loadCart(() => {
+    //     resolve("value3");
+    //   });
+    // });
 
-  await new Promise((resolve) => {
-    loadCart(() => {
-      resolve();
+    await new Promise((resolve, reject) => {
+      // inside promise 2 ways to create an error manually while using promises
+      // throw "error2"; // throw will go to catch but throw does not work in future
+      loadCart(() => {
+        // so we use reject() to throw error in future
+        //reject("error3");
+        resolve();
+      });
     });
-  });
+  } catch (error) {
+    console.log("unexpected error please try again");
+  }
   renderCheckoutHeader();
   renderOrderSummary();
   renderPaymentSummary();
