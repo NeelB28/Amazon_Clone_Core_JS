@@ -99,7 +99,7 @@ products.forEach((product) => {
             <option value="10">10</option>
           </select>
         </div>
-        ${product.extraInfoHTML()} <!-- Polmorphism -->
+        ${product.extraInfoHTML()} <!-- Polmorphism it will decide on its own what to method to take for which class-->
         <div class="product-spacer"></div>
 
         <div class="added-to-cart">

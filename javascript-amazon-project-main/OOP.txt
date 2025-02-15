@@ -22,11 +22,11 @@ OOP = organizing our code into objects (tries to represent the real world)
 class = help us generate these object; basically class is an object generator
 
 Features of class
-1. Constructor = let us run setup code after creating an object; it let us put set up code inside the class & ehlp us make code look cleaner
-
+1. Constructor = let us run setup code after creating an object; it let us put set up code inside the class & help us make code look cleaner
+so everytime we dont need to assign the values and replace it; just declare and distribute
 SET UP CODE (SETUP this)
 
-  this.localStorageKey = localStorageKey; // this will point to the object we will create let say object is businessCart then this will point businessCart
+  this.localStorageKey = localStorageKey; // this will point to the object we will create let say object is businessCart then this will point businessCart.localStorageKey (businessCart of Cart class has been assigned with the details provided by input) = localStorageKey 
   this.loadFromStorage();// this will run the loadFromStorage function inside the class
 
 More details about Constructor
@@ -56,3 +56,8 @@ so there comes POLYMORPHISM which means we can use a method without knowing the 
 so instead of doing if/else we let class class decide what this method does
 
 Built in classes are the classes that are providrd by the language ex: Date()
+
+child class cannot access the private #speed property (private properties can only be accessed in the same class and not even in child class); so we need to keep speed a public property
+
+  // In other languages a property can be public, private or protected = it can be accessed inside a class and its child classes
+  // In JavaScript, a property can only be public or private and that's why OOP is less popular in js because of absence of some features like protected properties

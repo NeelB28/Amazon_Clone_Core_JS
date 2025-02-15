@@ -3,6 +3,7 @@ import { validDeliveryOption } from "./deliveryOptions.js";
 // inside class we will put method and properties
 class Cart {
   cartItems = undefined; // that is the syntax of adding poperties to the class
+  // here cartIems is carts productId, qty and deliveroptionId
   #localStorageKey; // private property syntax #xyz
   //localStorageKey; // same declaration as above but shortcut
 
@@ -14,6 +15,7 @@ class Cart {
 
   constructor(localStorageKey) {
     this.#localStorageKey = localStorageKey; // this will point to the object we will create let say object is businessCart then this will point businessCart
+    // businessCart.localStorageKey (businessCart of Cart class has been assigned with the details provided by input) = localStorageKey
     this.#loadFromStorage();
   }
 

@@ -4,7 +4,7 @@ import formatCurrency from "../scripts/utils/money.js";
 
 // now in a cart we can have different categories of product class like electonics, accessories, garments and the properties and methods like size for clothes might vary so we migh need additional stuff for those thing and there we can introduce inheritance where we give properties and methods of parent classes but also provide some new methods and properties too; i.e. known as inheritance
 
-class Product {
+export class Product {
   id;
   image;
   name;
@@ -39,7 +39,7 @@ class Product {
 // but now again when we send this extrInfoHTML() to amazon.js then we don't know to what class it belongs whether Product or Clothing class
 // so there comes POLYMORPHISM which means we can use a method without knowing the class
 // so instead of doing if/else we let class class decide what this method does
-class Clothing extends Product {
+export class Clothing extends Product {
   sizeChartLink;
   // constructor of Clothing itself
   constructor(productDetails) {
@@ -86,6 +86,22 @@ class Clothing extends Product {
 //   keywords: ["socks", "sports", "apparel"],
 // });
 // console.log(product1); JUST AN EXAMPLE
+
+export class Appliance extends Product {
+  instructionsLink;
+  warrantyLink;
+  constructor(productDetails) {
+    super(productDetails);
+    this.instructionsLink = productDetails.instructionsLink;
+    this.warrantyLink = productDetails.warrantyLink;
+  }
+  extraInfoHTML() {
+    return `
+    <a href="${this.instructionsLink}" target="_blank">Instructions</a>
+    <a href="${this.warrantyLink}" target="_blank">Warranty</a>
+    `;
+  }
+}
 
 export function getProduct(productId) {
   let matchingProduct;
@@ -185,6 +201,9 @@ export const products = [
     },
     priceCents: 1899,
     keywords: ["toaster", "kitchen", "appliances"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "3ebe75dc-64d2-4137-8860-1f5a963e534b",
@@ -319,6 +338,9 @@ export const products = [
     },
     priceCents: 3074,
     keywords: ["water boiler", "appliances", "kitchen"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "6b07d4e7-f540-454e-8a1e-363f25dbae7d",
@@ -532,6 +554,9 @@ export const products = [
     },
     priceCents: 2250,
     keywords: ["coffeemakers", "kitchen", "appliances"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "02e3a47e-dd68-467e-9f71-8bf6f723fdae",
@@ -576,6 +601,9 @@ export const products = [
     },
     priceCents: 10747,
     keywords: ["food blenders", "kitchen", "appliances"],
+    type: "appliance",
+    instructionsLink: "images/appliance-instructions.png",
+    warrantyLink: "images/appliance-warranty.png",
   },
   {
     id: "36c64692-677f-4f58-b5ec-0dc2cf109e27",
@@ -613,9 +641,14 @@ export const products = [
 ].map((productDetails) => {
   if (productDetails.type === "clothing") {
     return new Clothing(productDetails);
+  } else if (productDetails.type === "appliance") {
+    return new Appliance(productDetails);
+  } else {
+    return new Product(productDetails);
   }
-  return new Product(productDetails);
 });
+
+// what map say that we are mapping product[].map(productDetails) i.e. mapping productDetails out of produts array at that time productDetails is products only and we will pass it new class and it will automatically set up id, name etc.. when we pass that productDetails of that products array to the class
 
 // (42) [Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product, Product] // now notice each of them is a class to confirm it starts with PascalCase "P"
 
