@@ -1,0 +1,62 @@
+# What is Backend?
+another computer that manages the data of website
+our computer(Frontend) ---info()--->---->info()----info()---->---- ownded by amazon(Backend)
+
+# How does our computer send information to the Backend?
+our computer ---- internet ---- Backend
+it uses HTTP: HyperText Tranfer Protocol
+
+# What is HTTP?
+HTTP is a protocol that allows our computer to send information to the Backend. It is a set of 
+rules that our computer follows to send information to the Backend.
+attach orderMessage and it will carry to Backend
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# What is HTTP?
+HTTP is a protocol that allows our computer to send information to the Backend. It is a set of 
+rules that our computer follows to send information to the Backend.
+# What is a Protocol?
+A protocol is a set of rules that our computer follows to communicate with another computer.
+# What is a Server?
+A server is a computer that manages the data of a website. It is owned by the company that
+owns the website.
+# What is a Database?
+A database is a collection of data that is stored on a server. It is used to store and
+retrieve data for a website.
+# What is a Frontend and Backend?
+Frontend: our computer
+Backend: the server that manages the data of a website
+# What is a URL?
+A URL is a web address that we use to access a website. It is made up of several
+parts, including the protocol (http or https), the domain name, and the path to the
+resource we want to access.
+# What is a Domain Name?
+A domain name is the name of a website. It is used to identify the website and make it
+easier to remember.
+# What is a Path?
+A path is the location of a resource on a website. It is used to identify the resource and
+make it easier to access.
+# What is a Resource?
+A resource is a file or data that is stored on a website. It can be a text file
+, an image file, or a database.
+# What is a Web Browser?
+A web browser is a software that allows us to access and view websites. It is used to
+display the content of a website and allow us to interact with it.
+# What is a Website?
+A website is a collection of web pages that are stored on a server and can be accessed
+through a web browser. It is used to display information, provide services, and allow users
+to interact with it.
