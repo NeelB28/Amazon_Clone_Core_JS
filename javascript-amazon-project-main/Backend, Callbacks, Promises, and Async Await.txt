@@ -43,6 +43,10 @@ Throw
 - any type of value string, number etc
 
 
+URL parameters
+ let us save data directly in the url
+
+
 
 # What is HTTP?
 HTTP is a protocol that allows our computer to send information to the Backend. It is a set of 
