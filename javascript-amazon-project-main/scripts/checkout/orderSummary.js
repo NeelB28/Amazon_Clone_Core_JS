@@ -38,6 +38,10 @@ export function renderOrderSummary() {
   cart.forEach((cartItem) => {
     const productId = cartItem.productId;
     let matchingProduct = getProduct(productId);
+    if (!matchingProduct) {
+      console.error(`Product with ID ${productId} not found.`);
+      return;
+    }
 
     const deliveryOptionId = cartItem.deliveryOptionId;
     const deliveryOption = getDeliveryOption(deliveryOptionId);

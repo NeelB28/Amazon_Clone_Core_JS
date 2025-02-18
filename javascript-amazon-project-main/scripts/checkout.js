@@ -2,7 +2,7 @@ import { renderCheckoutHeader } from "./checkout/checkoutHeader.js";
 import { renderOrderSummary } from "./checkout/orderSummary.js";
 import { renderPaymentSummary } from "./checkout/paymentSummary.js";
 import { loadProducts, loadProductsFetch } from "../data/products.js";
-import { loadCart } from "../data/cart.js";
+import { loadCart, loadCartFetch } from "../data/cart.js";
 
 //import "../data/cart-oop.js"; // this just runs all the code inside this file without importing anything & that is what we need in this situation to run only this in console
 // import "../data/cart-class.js";
@@ -23,26 +23,28 @@ import { loadCart } from "../data/cart.js";
 // await needs to be the closest to async function if in bw other fn comes then await can't be used
 async function loadPage() {
   try {
-    // throw "error1";
-    await loadProductsFetch();
-    // so await will let us wirte async code like normal and will wait till this above fetch which returns promise is fetched and after that goes to next line of code so we skipped the part of .then
+    await Promise.all([loadProductsFetch(), loadCartFetch()]);
 
-    // to avoid writing then value3 will be stored directly in value variable
-    // const value = await new Promise((resolve) => {
-    //   loadCart(() => {
-    //     resolve("value3");
+    // // throw "error1";
+    // await loadProductsFetch();
+    // // so await will let us wirte async code like normal and will wait till this above fetch which returns promise is fetched and after that goes to next line of code so we skipped the part of .then
+
+    // // to avoid writing then value3 will be stored directly in value variable
+    // // const value = await new Promise((resolve) => {
+    // //   loadCart(() => {
+    // //     resolve("value3");
+    // //   });
+    // // });
+
+    // await new Promise((resolve, reject) => {
+    //   // inside promise 2 ways to create an error manually while using promises
+    //   // throw "error2"; // throw will go to catch but throw does not work in future
+    //   loadCartFetch(() => {
+    //     // so we use reject() to throw error in future
+    //     //reject("error3");
+    //     resolve();
     //   });
     // });
-
-    await new Promise((resolve, reject) => {
-      // inside promise 2 ways to create an error manually while using promises
-      // throw "error2"; // throw will go to catch but throw does not work in future
-      loadCart(() => {
-        // so we use reject() to throw error in future
-        //reject("error3");
-        resolve();
-      });
-    });
   } catch (error) {
     console.log("unexpected error please try again");
   }

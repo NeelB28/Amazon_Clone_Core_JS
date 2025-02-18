@@ -1,4 +1,4 @@
-import { cart, calculateCartQuantity } from "../../data/cart.js";
+import { cart, calculateCartQuantity, resetCart } from "../../data/cart.js";
 import { getDeliveryOption } from "../../data/deliveryOptions.js";
 import { getProduct } from "../../data/products.js";
 import { formatCurrency } from "../utils/money.js";
@@ -95,6 +95,7 @@ export function renderPaymentSummary() {
       } catch (error) {
         console.log("Unexpected error. Try again later.");
       }
+      resetCart();
       window.location.href = "orders.html"; // is special obj by js let us control url at the top of the browser
       // if we change the location of obj it will change the url
       // http://127.0.0.1:5502/javascript-amazon-project-main/ here after / abpve window.lock will come and url will be different
